@@ -9,33 +9,15 @@
 #include <sstream>
 #include <iostream>
 
-class P {
-public:
-    explicit P(Context context)
-    : mContext(context)
-    , i(0) {}
-
-    Button operator()() {
-        std::stringstream ss;
-        ss << i+1;
-        Button button(std::to_string(i+1),
-            std::bind(&ModeManager::setMode, &mContext.modeManager, new PlayScreen(mContext, i)),
-            mContext);
-        button.setPosition(50.f+(Button::WIDTH+10.f)*(i%3), 100.f+(Button::HEIGHT+10.f)*(i/3));
-        i++;
-        return button;
-    }
-
-private:
-    Context mContext;
-    int i;
-};
-
 MainMenu::MainMenu(Context context)
-: GameMode(context)
-, mText("Menu ppal", context.font, 50) {
-    P p(mContext);
-    std::generate_n(std::inserter(mButtons, mButtons.end()), context.levels.size(), p);
+        : GameMode(context)
+        , mText("Menu ppal", context.font, 50) {
+    for (int i = 0; i < context.levels.size(); i++) {
+        mButtons.emplace_back(std::to_string(i+1), [this, i](){
+            mContext.modeManager.setMode(new PlayScreen(mContext, i));
+        }, context);
+        mButtons.back().setPosition(50.f+(Button::WIDTH+10.f)*(i%3), 100.f+(Button::HEIGHT+10.f)*(i/3));
+    }
     mText.setOrigin(mText.getLocalBounds().width/2.f, mText.getLocalBounds().height/2.f);
     mText.setPosition(180.f, 50.f);
 }

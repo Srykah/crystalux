@@ -16,6 +16,8 @@ public:
     explicit Grid(Context context, int level);
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates()) const override;
 
+    sf::Vector2f getSize() const;
+
 private:
     std::vector<Tile> mTiles;
     sf::VertexArray mGrid;

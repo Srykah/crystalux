@@ -30,6 +30,7 @@ private:
     bool mMovable;
     sf::CircleShape mBackground;
     std::vector<sf::RectangleShape> mCrystals;
+    sf::Transform mTransform;
 };
 
 #endif //CRYSTALUX_TILE_HPP

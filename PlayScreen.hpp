@@ -6,6 +6,7 @@
 #define CRYSTALUX_PLAYSCREEN_HPP
 
 #include "GameMode.hpp"
+#include "Grid.hpp"
 
 class PlayScreen : public GameMode {
 public:
@@ -14,6 +15,9 @@ public:
     void handleEvent(sf::Event event) override;
     void update(sf::Time delta) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates()) const override;
+
+private:
+    Grid mGrid;
 };
 
 

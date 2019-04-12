@@ -7,9 +7,9 @@
 
 enum Connexion {
     NONE = '.',
-    BLUE = 'b',
     RED = 'r',
     GREEN = 'g',
+    BLUE = 'b',
     YELLOW = 'y'
 };
 
