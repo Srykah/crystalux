@@ -14,6 +14,9 @@ PlayScreen::PlayScreen(Context context, int i)
 , mMenuButton('<', [this]() {
     mContext.modeManager.setMode(new MainMenu(mContext));
 }, context)
+, mRestartButton(L"×", [this, i]() {
+    mContext.modeManager.setMode(new PlayScreen(mContext, i));
+}, context)
 , mNextLevelButton('>', [this, i]() {
     if (i == mContext.levelCount)
         mContext.modeManager.setMode(new MainMenu(mContext)); // à changer par l'écran des crédits
@@ -46,6 +49,8 @@ PlayScreen::PlayScreen(Context context, int i)
 
     centerOrigin(mNextLevelButton);
     mNextLevelButton.setPosition(180.f, 620.f - Button::HEIGHT / 2.f);
+
+    mRestartButton.setPosition(360.f - Button::WIDTH, 0.f);
 }
 
 void PlayScreen::handleEvent(sf::Event event) {
@@ -57,6 +62,11 @@ void PlayScreen::handleEvent(sf::Event event) {
         else
             mMenuButton.highlight(false);
 
+        if (mRestartButton.contains(mousePos))
+            mRestartButton.highlight();
+        else
+            mRestartButton.highlight(false);
+
         if (mGridValid) {
             if (mNextLevelButton.contains(mousePos))
                 mNextLevelButton.highlight();
@@ -66,6 +76,8 @@ void PlayScreen::handleEvent(sf::Event event) {
     } else if (event.type == sf::Event::MouseButtonPressed) {
         if (mMenuButton.contains(mousePos))
             mMenuButton.activate();
+        else if (mRestartButton.contains(mousePos))
+            mRestartButton.activate();
 
         if (!mGridValid) {
             Tile* tile(mGrid.getTile(mousePos));
@@ -104,6 +116,7 @@ void PlayScreen::update(sf::Time delta) {
 void PlayScreen::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(mGrid, states);
     target.draw(mMenuButton, states);
+    target.draw(mRestartButton, states);
     if (mGridValid) {
         target.draw(mNextLevelButton, states);
         target.draw(mWinText, states);

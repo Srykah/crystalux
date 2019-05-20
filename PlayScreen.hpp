@@ -21,6 +21,7 @@ private:
     Grid mGrid;
     Button mMenuButton;
     Button mNextLevelButton;
+    Button mRestartButton;
     Tile* mSelection;
     bool mGridValid;
     sf::Text mWinText;
