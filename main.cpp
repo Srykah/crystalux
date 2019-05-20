@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include <SFML/Graphics/CircleShape.hpp>
 #include <exception>
 #include <iostream>
 

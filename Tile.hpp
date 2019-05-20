@@ -5,7 +5,7 @@
 #ifndef CRYSTALUX_TILE_HPP
 #define CRYSTALUX_TILE_HPP
 
-#include "Connexions.hpp"
+#include "Connexion.hpp"
 #include "pugixml.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -14,14 +14,19 @@
 #include <array>
 #include <vector>
 
-class Tile : public sf::Drawable {
+class Tile : public sf::Drawable, public sf::Transformable {
 public:
-    explicit Tile(pugi::xml_node node);
+    Tile(); // empty tile
+    Tile(std::array<Connexion::Color, 6> colors, bool movable);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates()) const override;
-
     void setCoords(sf::Vector2i coords);
     sf::Vector2i getCoords() const;
+    Connexion& getConnexion(unsigned int i);
+    const Connexion& getConnexion(unsigned int i) const;
+    bool contains(sf::Vector2f gridPos) const;
+    bool empty() const;
+    bool movable() const;
 
 private:
     sf::Vector2i mCoords;
@@ -29,8 +34,6 @@ private:
     bool mEmpty;
     bool mMovable;
     sf::CircleShape mBackground;
-    std::vector<sf::RectangleShape> mCrystals;
-    sf::Transform mTransform;
 };
 
 #endif //CRYSTALUX_TILE_HPP

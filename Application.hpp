@@ -23,14 +23,12 @@ private:
     void handleEvents();
     void update(sf::Time delta);
     void render();
-    void loadLevels();
     Context getContext();
 
 private:
     sf::RenderWindow mWindow;
     ModeManager mModeManager;
     sf::Font mFont;
-    std::vector<std::vector<Tile>> mLevels;
 };
 
 

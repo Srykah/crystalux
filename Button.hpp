@@ -17,7 +17,7 @@ public:
     static constexpr float WIDTH = 80.f;
     static constexpr float HEIGHT = 80.f;
 public:
-    Button(sf::String text, std::function<void()> callback, Context context);
+    Button(const sf::String& text, std::function<void()> callback, Context context);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates()) const override;
 

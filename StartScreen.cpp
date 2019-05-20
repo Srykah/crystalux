@@ -5,15 +5,16 @@
 #include "StartScreen.hpp"
 #include "MainMenu.hpp"
 #include "ModeManager.hpp"
+#include "fonctions.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 
 StartScreen::StartScreen(Context context)
 : GameMode(context)
 , mText("Crystalux", context.font, 70)
-, mButton(sf::String("▶"), [this, context](){
+, mButton('>', [this, context](){
     context.modeManager.setMode(new MainMenu(context));
 }, context) {
-    mText.setOrigin(mText.getLocalBounds().width/2.f, mText.getLocalBounds().height/2.f);
+    centerOrigin(mText);
     mText.setPosition(180.f, 180.f);
     mButton.setOrigin(mButton.getLocalBounds().width/2.f, mButton.getLocalBounds().height/2.f);
     mButton.setPosition(180.f, 460.f);

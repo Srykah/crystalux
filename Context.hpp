@@ -10,13 +10,12 @@
 #include <memory>
 
 class ModeManager;
-class Tile;
 
 struct Context {
     const sf::Window& window;
     ModeManager& modeManager;
     const sf::Font& font;
-    const std::vector<std::vector<Tile>>& levels;
+    int levelCount;
 };
 
 #endif //CRYSTALUX_CONTEXT_HPP

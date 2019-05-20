@@ -5,20 +5,20 @@
 #include "MainMenu.hpp"
 #include "PlayScreen.hpp"
 #include "ModeManager.hpp"
+#include "fonctions.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <sstream>
-#include <iostream>
 
 MainMenu::MainMenu(Context context)
-        : GameMode(context)
-        , mText("Menu ppal", context.font, 50) {
-    for (int i = 0; i < context.levels.size(); i++) {
+: GameMode(context)
+, mText("Menu ppal", context.font, 50) {
+    for (int i = 0; i < mContext.levelCount; i++) {
         mButtons.emplace_back(std::to_string(i+1), [this, i](){
-            mContext.modeManager.setMode(new PlayScreen(mContext, i));
+            mContext.modeManager.setMode(new PlayScreen(mContext, i+1));
         }, context);
         mButtons.back().setPosition(50.f+(Button::WIDTH+10.f)*(i%3), 100.f+(Button::HEIGHT+10.f)*(i/3));
     }
-    mText.setOrigin(mText.getLocalBounds().width/2.f, mText.getLocalBounds().height/2.f);
+    centerOrigin(mText);
     mText.setPosition(180.f, 50.f);
 }
 

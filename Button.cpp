@@ -3,14 +3,15 @@
 //
 
 #include "Button.hpp"
+#include "fonctions.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 
-Button::Button(sf::String text, std::function<void()> callback, Context context)
+Button::Button(const sf::String& text, std::function<void()> callback, Context context)
 : mBackground(sf::Vector2f(Button::WIDTH, Button::HEIGHT))
 , mText(text, context.font, 50)
-, mCallback(callback) {
+, mCallback(std::move(callback)) {
     mBackground.setOutlineThickness(-3.f);
-    mText.setOrigin(mText.getLocalBounds().width/2, mText.getLocalBounds().height/2);
+    centerOrigin(mText);
     mText.setPosition(Button::WIDTH/2, Button::HEIGHT/2);
     highlight(false);
 }

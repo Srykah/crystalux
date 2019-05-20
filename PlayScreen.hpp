@@ -7,6 +7,7 @@
 
 #include "GameMode.hpp"
 #include "Grid.hpp"
+#include "Button.hpp"
 
 class PlayScreen : public GameMode {
 public:
@@ -18,6 +19,11 @@ public:
 
 private:
     Grid mGrid;
+    Button mMenuButton;
+    Button mNextLevelButton;
+    Tile* mSelection;
+    bool mGridValid;
+    sf::Text mWinText;
 };
 
 

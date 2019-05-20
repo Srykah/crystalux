@@ -7,15 +7,13 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include <stdexcept>
-#include <iostream>
 
 const sf::Time TIME_PER_FRAME = sf::seconds(1.f/60.f);
 
 Application::Application()
 : mWindow(sf::VideoMode(360,640), "Crystalux", sf::Style::Close) {
-    loadLevels();
-    if (!mFont.loadFromFile("Media/Fonts/OpenSans.ttf"))
-        throw std::runtime_error("Could not load font OpenSans");
+    if (!mFont.loadFromFile("Media/Fonts/NotoSans-Regular.ttf"))
+        throw std::runtime_error("Could not load font Noto");
 
     mModeManager.setMode(new StartScreen(getContext()));
 }
@@ -55,26 +53,11 @@ void Application::render() {
     mWindow.display();
 }
 
-void Application::loadLevels() {
-    pugi::xml_document doc;
-    if (!doc.load_file("Media/Levels/LevelMap.xml"))
-        throw std::runtime_error("Couldn't load LevelMap.xml");
-    for (pugi::xml_node& fileNode : doc.child("levelFiles").children("file")) {
-        pugi::xml_document levelDoc;
-        if (!levelDoc.load_file(fileNode.child_value()))
-            throw std::runtime_error("Couldn't load LevelMap.xml");
-        std::vector<Tile> level;
-        for (auto tileNode : levelDoc.child("level").children("tile"))
-            level.emplace_back(tileNode);
-        mLevels.push_back(level);
-    }
-}
-
 Context Application::getContext() {
     return {
         mWindow,
         mModeManager,
         mFont,
-        mLevels
+        4
     };
 }

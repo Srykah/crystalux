@@ -12,12 +12,12 @@ add_executable(${PROJECT_NAME}
         MainMenu.cpp MainMenu.hpp
         Button.cpp Button.hpp
         StartScreen.cpp StartScreen.hpp
-        Connexions.hpp
+        Connexion.hpp
         Tile.cpp Tile.hpp
         PlayScreen.cpp PlayScreen.hpp
         ModeManager.cpp ModeManager.hpp
         Grid.cpp Grid.hpp
-        pugixml.cpp pugixml.hpp pugiconfig.hpp)
+        pugixml.cpp pugixml.hpp pugiconfig.hpp fonctions.hpp fonctions.inl fonctions.cpp Connexion.cpp)
 
 target_link_libraries(${PROJECT_NAME}
         debug ${SFML_PATH}/lib/libfreetype.a
