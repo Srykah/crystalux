@@ -15,7 +15,6 @@ public:
     explicit GameMode(Context context);
 
     virtual void handleEvent(sf::Event event) = 0;
-    virtual void update(sf::Time delta) = 0;
 
 protected:
     Context mContext;

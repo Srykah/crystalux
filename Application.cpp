@@ -4,6 +4,7 @@
 
 #include "Application.hpp"
 #include "StartScreen.hpp"
+#include <SFML/System/Sleep.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include <stdexcept>
@@ -12,8 +13,8 @@ const sf::Time TIME_PER_FRAME = sf::seconds(1.f/60.f);
 
 Application::Application()
 : mWindow(sf::VideoMode(360,640), "Crystalux", sf::Style::Close) {
-    if (!mFont.loadFromFile("Media/Fonts/NotoSans-Regular.ttf"))
-        throw std::runtime_error("Could not load font Noto");
+    if (!mFont.loadFromFile("Media/Fonts/OpenSans.ttf"))
+        throw std::runtime_error("Could not load font Open Sans");
 
     mModeManager.setMode(new StartScreen(getContext()));
 }
@@ -23,13 +24,11 @@ void Application::run() {
     sf::Time timeSinceLastUpdate;
     while (mWindow.isOpen()) {
         timeSinceLastUpdate += clock.restart();
-        while (timeSinceLastUpdate >= TIME_PER_FRAME) {
+        for (; timeSinceLastUpdate >= TIME_PER_FRAME; timeSinceLastUpdate -= TIME_PER_FRAME)
             handleEvents();
-            update(TIME_PER_FRAME);
-            timeSinceLastUpdate -= TIME_PER_FRAME;
-        }
-
+        mModeManager.update();
         render();
+        sf::sleep(TIME_PER_FRAME - timeSinceLastUpdate);
     }
 }
 
@@ -43,10 +42,6 @@ void Application::handleEvents() {
     }
 }
 
-void Application::update(sf::Time delta) {
-    mModeManager.update(delta);
-}
-
 void Application::render() {
     mWindow.clear();
     mWindow.draw(mModeManager);
@@ -58,6 +53,6 @@ Context Application::getContext() {
         mWindow,
         mModeManager,
         mFont,
-        4
+        15
     };
 }

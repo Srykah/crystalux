@@ -7,7 +7,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 ModeManager::ModeManager(GameMode *mode)
-: mMode(mode) {
+: mMode(mode)
+, mNeedUpdate(false)
+, mNextMode(nullptr) {
 
 }
 
@@ -21,16 +23,14 @@ void ModeManager::handleEvent(sf::Event event) {
         mMode->handleEvent(event);
 }
 
-void ModeManager::update(sf::Time delta) {
+void ModeManager::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    if (mMode)
+        target.draw(*mMode, states);
+}
+
+void ModeManager::update() {
     if (mNeedUpdate) {
         mMode.reset(mNextMode);
         mNeedUpdate = false;
     }
-    if (mMode)
-        mMode->update(delta);
-}
-
-void ModeManager::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    if (mMode)
-        target.draw(*mMode, states);
 }

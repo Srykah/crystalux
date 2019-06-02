@@ -45,7 +45,3 @@ void Button::activate() {
 sf::FloatRect Button::getLocalBounds() const {
     return mBackground.getLocalBounds();
 }
-
-sf::FloatRect Button::getGlobalBounds() const {
-    return getTransform().transformRect(getLocalBounds());
-}

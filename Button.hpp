@@ -26,7 +26,6 @@ public:
     void activate();
 
     sf::FloatRect getLocalBounds() const;
-    sf::FloatRect getGlobalBounds() const;
 
 private:
     sf::RectangleShape mBackground;

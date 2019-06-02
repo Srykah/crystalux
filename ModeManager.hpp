@@ -16,14 +16,14 @@ class ModeManager : public sf::Drawable {
 public:
     explicit ModeManager(GameMode* mode = nullptr);
     void setMode(GameMode *mode);
+    void update();
     void handleEvent(sf::Event event);
-    void update(sf::Time delta);
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates()) const override;
 
 private:
     std::unique_ptr<GameMode> mMode;
-    GameMode* mNextMode;
     bool mNeedUpdate;
+    GameMode* mNextMode;
 };
 
 

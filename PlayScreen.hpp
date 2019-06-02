@@ -14,7 +14,6 @@ public:
     PlayScreen(Context context, int i);
 
     void handleEvent(sf::Event event) override;
-    void update(sf::Time delta) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates()) const override;
 
 private:
@@ -24,6 +23,7 @@ private:
     Button mRestartButton;
     Tile* mSelection;
     bool mGridValid;
+    sf::Text mLevelText;
     sf::Text mWinText;
 };
 

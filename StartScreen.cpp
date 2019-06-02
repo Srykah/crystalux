@@ -32,10 +32,6 @@ void StartScreen::handleEvent(sf::Event event) {
     }
 }
 
-void StartScreen::update(sf::Time delta) {
-
-}
-
 void StartScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(mText, states);
     target.draw(mButton, states);

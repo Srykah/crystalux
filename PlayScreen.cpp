@@ -25,6 +25,7 @@ PlayScreen::PlayScreen(Context context, int i)
 }, context)
 , mSelection(nullptr)
 , mGridValid(false)
+, mLevelText("Niveau " + std::to_string(i), context.font, 30)
 , mWinText(L"Vous avez gagné !", context.font, 30) {
     auto str = "Media/Levels/Level" + std::to_string(i) + ".xml";
     pugi::xml_document doc;
@@ -43,6 +44,9 @@ PlayScreen::PlayScreen(Context context, int i)
         180.f-(0.5f*size.x-50.f)*zoom,
         320.f-(0.5f*(size.y-sqrtOf3*50.f))*zoom
     );
+
+    centerOrigin(mLevelText);
+    mLevelText.setPosition(180.f, Button::HEIGHT / 2.f);
 
     centerOrigin(mWinText);
     mWinText.setPosition(180.f, 600.f - Button::HEIGHT);
@@ -109,14 +113,11 @@ void PlayScreen::handleEvent(sf::Event event) {
     }
 }
 
-void PlayScreen::update(sf::Time delta) {
-
-}
-
 void PlayScreen::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(mGrid, states);
     target.draw(mMenuButton, states);
     target.draw(mRestartButton, states);
+    target.draw(mLevelText, states);
     if (mGridValid) {
         target.draw(mNextLevelButton, states);
         target.draw(mWinText, states);

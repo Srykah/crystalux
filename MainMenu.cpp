@@ -38,10 +38,6 @@ void MainMenu::handleEvent(sf::Event event) {
     }
 }
 
-void MainMenu::update(sf::Time delta) {
-
-}
-
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(mText, states);
     for (auto& button : mButtons)

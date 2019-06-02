@@ -21,7 +21,6 @@ public:
 
 private:
     void handleEvents();
-    void update(sf::Time delta);
     void render();
     Context getContext();
 
